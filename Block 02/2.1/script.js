@@ -16,7 +16,3 @@ natureName.forEach(function(pName) {
 
  
 console.log(natureName)
-
-document.querySelector('.voy-qb-item-area .voy-wikidata-content').innerText;
-
- 
