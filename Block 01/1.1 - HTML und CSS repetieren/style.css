@@ -37,3 +37,6 @@ grid{
   grid-gap:50px 30px;
   border-image-width: 10em;
 }
+img{
+  max-width:10em;
+}
