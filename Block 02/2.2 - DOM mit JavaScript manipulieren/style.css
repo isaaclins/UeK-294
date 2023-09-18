@@ -1,0 +1,42 @@
+html{
+  background-color: #1cd761;
+}
+:root{
+  font-size: 16px;
+}
+header {
+  height: 7rem;
+ display:flex ;
+}
+body{
+  max-width: 52rem;
+}
+brand{
+  font-size: 2em;
+}
+nav a{
+  Border-radius: 3rem;
+  Padding: 0.6rem;
+  Border: 2px
+}
+footer{
+  border-radius: 1em;
+  padding:1em;
+
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.75);
+  bottom: 0%;
+  width: 80%;
+  left: 10%;
+  right: 10%;
+}
+grid{
+  display:grid;
+  grid-template-columns: repeat(3,150px);
+  grid-template-rows: repeat(3,150px);
+  grid-gap:50px 30px;
+  border-image-width: 10em;
+}
+img{
+  max-width:10em;
+}
