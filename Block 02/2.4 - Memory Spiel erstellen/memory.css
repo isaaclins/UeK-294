@@ -1,17 +1,40 @@
-.board {
+#playground {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Adjust the number of columns as needed */
-  grid-gap: 10px;
+  grid: repeat(3, 1fr) / repeat(7, 1fr);
+  grid-gap: 1rem;
   width: 80vw;
+  /* miheight: 100vw; */
   margin: 0 auto;
 }
 
-button {
-  cursor: pointer;
+.won {
+  opacity: 0.5;
+  position: relative;
 }
 
-img.hidden {
-  
+.won .won-text {
+font-size: 4rem;
+font-weight: bold;
+text-align: center
 }
 
+.tile.revealed img, .tile.found img {
+  margin: 1rem auto;
+  display: block;
+}
 
+.tile img {
+  display: none;
+}
+
+.tile.revealed, .tile.found {
+  background-color: white;
+  background-image: none;
+}
+
+.tile {
+  height: 8rem;
+  width: 8rem;
+  background-color: #878c00;
+  background-image: url("https://www.transparenttextures.com/patterns/argyle.png");
+}

@@ -1,56 +1,56 @@
-const cantons = [
-  'ag',
-  'ar',
-  'bl',
-  'fr',
-  'gl',
-  'ju',
-  'ne',
-  'ow',
-  'sh',
-  'sz',
-  'ti',
-  'vd',
-  'zg',
-  'ai',
-  'be',
-  'bs',
-  'ge',
-  'gr',
-  'lu',
-  'nw',
-  'sg',
-  'so',
-  'tg',
-  'ur',
-  'vs',
-  'zh',
-];
+document.addEventListener('DOMContentLoaded', () => {
+	let tries = 0;
+	const cantons = ['ag', 'ar', 'bl', 'fr', 'gl', 'ju', 'ne', 'ow', 'sh', 'sz', 'ti', 'vd', 'zg', 'ai', 'be', 'bs', 'ge', 'gr', 'lu', 'nw', 'sg', 'so', 'tg', 'ur', 'vs', 'zh'];
+	const board = document.getElementById("board")
+	const tiles = board.getElementsByClassName("tile")
+	const revealedTiles = board.getElementsByClassName("tile revealed")
+	const checkIfPlayerHasWon = () => {
+		if (Array.from(tiles).every(tile => tile.classList.contains("found"))) {
+			alert(`You won in ${tries} turns!`)
+			tries = 0
+		}
+	}
+	const checkForTurn = (event) => {
+		let tile = event.currentTarget;
+		if (revealedTiles.length >= 2) {
+			Array.from(revealedTiles).forEach(otherTile => otherTile.classList.remove("revealed"));
+		}
 
-const playground = document.getElementById('board');
+		Array.from(revealedTiles).forEach(otherTile => {
+			if (tile != otherTile && tile.children[0].src === otherTile.children[0].src) {
+				tile.classList.add("found");
+				otherTile.classList.add("found");
+			}
+		});
 
-const getFlagPath = function (canton) {
-  return `img/${canton}.png`;
-};
+		tile.classList.add("revealed");
+		tries++;
 
-document.addEventListener('DOMContentLoaded', function gamesetup() {
-  cantons.sort(() => 0.5 - Math.random());
+		checkIfPlayerHasWon()
+	}
 
-  const singleDeck = cantons.slice(0, 10);
+	const createTile = (canton) => {
 
-  const fullDeck = singleDeck.concat(singleDeck);
+		const tileImage = document.createElement('img');
+		tileImage.setAttribute('src', `img/${canton}.png`);
 
-  fullDeck.sort(() => 0.5 - Math.random());
+		const tile = document.createElement('button');
+		tile.append(tileImage);
+		tile.className = "tile";
+		tile.onclick = checkForTurn;
+		return tile;
+	}
 
-  fullDeck.forEach(function (value) {
-    const tileButton = document.createElement('button');
-    const tileImage = document.createElement('img');
-    tileImage.setAttribute('src', getFlagPath(value));
-    tileImage.classList.add('hidden');
-    tileButton.appendChild(tileImage);
-    tileButton.addEventListener('click', function () {
-      tileImage.classList.remove('hidden'); 
-    });
-    playground.appendChild(tileButton);
-  });
+	const initialisieren = () => {
+    board.innerHTML = ""
+		const shuffled = cantons.sort(() => 0.5 - Math.random()).slice(0, 10);
+		for (let i = 2; i; i--) {
+			for (let canton of shuffled.sort(() => 0.5 - Math.random())) {
+				board.append(createTile(canton));
+			};
+		}
+
+	}
+
+	initialisieren()
 });
