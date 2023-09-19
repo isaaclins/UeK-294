@@ -2,7 +2,16 @@ const addButton = document.getElementById('add-3-album');
 const imgGrid = document.getElementById('grid-img');
 const removeButton = document.getElementById('remove-3-album');
 
-const add3 = () => {
+removeButton.onclick = () => {
+  for (let i = 0; i < 3; i++) {
+    const firstImg = imgGrid.querySelector('img');
+    if (firstImg) {
+      imgGrid.removeChild(firstImg);
+    }
+  }
+};;
+
+addButton.onclick = () => {
   console.log('clicked')
   const albums = Array.from(imgGrid.children);
   for (let i = 0; i < 3; i++) {
@@ -13,16 +22,4 @@ const add3 = () => {
     newAlbumItem.className = 'grid-image';
     imgGrid.appendChild(newAlbumItem);
   }
-};
-
-const remove3 = () => {
-  for (let i = 0; i < 3; i++) {
-    const firstImg = imgGrid.querySelector('img');
-    if (firstImg) {
-      imgGrid.removeChild(firstImg);
-    }
-  }
-};
-
-removeButton.onclick = remove3;
-addButton.onclick = add3;
+};;

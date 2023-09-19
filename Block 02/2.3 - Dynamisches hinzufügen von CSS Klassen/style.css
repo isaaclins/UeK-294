@@ -1,0 +1,26 @@
+#destinations {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+}
+
+#destinations li {
+  flex-basis: calc(33.33% - 1900px);
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px; 
+  border: 1px solid #179f05;
+  box-sizing: border-box; 
+  border-radius: 5px;
+}
+html{
+  max-width: 100%;
+}
+.chosen {
+  background-color: rgb(0, 255, 255);
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  
+}
