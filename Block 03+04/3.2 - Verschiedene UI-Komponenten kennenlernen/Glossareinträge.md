@@ -3,10 +3,10 @@
 **Name und Synonyme:**
 
 - Name: Accordion
-- Synonyme: Collapsible Panel, Expandable Panel, Dropdown Panel
+- Synonyme: 
 
 **Einsatzzweck und Funktion:**
-Die Accordion-Komponente ist ein weit verbreitetes UI-Element, das es ermöglicht, Inhalte in einer hierarchischen Struktur anzuzeigen und aus- und einzuklappen. Sie wird oft verwendet, um große Mengen von Informationen in einem kompakten Format darzustellen und Benutzern die Möglichkeit zu geben, selektiv auf bestimmte Abschnitte zuzugreifen. Ein Accordion-Panel besteht normalerweise aus einer Überschrift und einem darunterliegenden Inhalt. Wenn der Benutzer auf die Überschrift klickt, klappt das dazugehörige Panel auf oder zu, je nach aktuellem Zustand. Dies erleichtert die Navigation und Organisation von Inhalten, insbesondere auf Websites oder Anwendungen mit umfangreichen Texten oder Menüs.
+
 
 **Screenshots:**
 
