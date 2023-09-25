@@ -1,3 +1,23 @@
+document.addEventListener("DOMContentLoaded", function setup() {
+  const titles = document.querySelectorAll(".title");
+  const nav = document.querySelector("nav");
+
+  const getId = (titleElement) => {
+    return titleElement.getAttribute('id');
+  }
+
+  titles.forEach(function (value) {
+    const titleBtn = document.createElement('button');
+    titleBtn.className = "nav-btn";
+    titleBtn.textContent = value.textContent;
+    const link = document.createElement('a');
+    link.setAttribute('href', '#' + getId(value));
+    link.appendChild(titleBtn);
+    nav.appendChild(link);
+    console.log(titleBtn);
+  });
+});
+
 document.addEventListener("DOMContentLoaded", function () {
   const sections = document.querySelectorAll("main > h2, main > img, main > p");
 
