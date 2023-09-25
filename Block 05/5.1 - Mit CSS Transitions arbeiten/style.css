@@ -2,20 +2,20 @@
   background-color: rgba(137, 43, 226, 0.595);
   width: 100px;
   height: 100px;
-  transition: all 1.5s ease; /*make the transition with attributes (1.5s, ease so its smooth etc.)*/
-  top: 0; /* Initialize position so the movement is smooth  */
-  left: 0; /* Initialize position so the movement is smooth */
-
+  transition: all 1.5s ease; /* Default transition */
+  top: 0;
+  left: 0;
 }
 
 .square.square-end {
   width: 150px;
   height: 150px;
-  transform: rotate(-180deg); /*smooth rotation*/
+  transform: rotate(-180deg);
   background-color: rgba(45, 234, 135, 0.9);
   left: 50%;
   top: 50%;
 }
-#square{
+
+#square {
   position: relative;
 }
