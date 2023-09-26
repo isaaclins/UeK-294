@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kommentar hinzufügen</title>
+</head>
+<body>
+    <h1>Kommentar hinzufügen</h1>
+    <form id="commentForm">
+        <label for="message">Nachricht (3-300 Zeichen):</label>
+        <textarea id="message" name="message" minlength="3" maxlength="300" required></textarea><br>
+
+        <label for="username">Benutzername (3-16 Zeichen):</label>
+        <input type="text" id="username" name="username" minlength="3" maxlength="16" required><br>
+
+        <button type="button" id="addCommentButton">Kommentar hinzufügen</button>
+    </form>
+
+    <div id="commentResult"></div>
+
+    <script>
+        document.getElementById("addCommentButton").addEventListener("click", function () {
+            const message = document.getElementById("message").value;
+            const username = document.getElementById("username").value;
+
+            // Schritt 1: Token-Abruf
+            fetch("http://10.71.4.34/challenges/1", {
+                method: "POST"
+            })
+            .then(response => response.json())
+            .then(tokenData => {
+                const token = tokenData.token;
+
+                // Schritt 2: Kommentar senden
+                fetch("http://10.71.4.34/comments", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        username: username
+                    })
+                })
+                .then(response => response.json())
+                .then(commentResponse => {
+                    // Schritt 3: Ergebnis anzeigen
+                    document.getElementById("commentResult").innerHTML = "Kommentar wurde erfolgreich hinzugefügt: " + commentResponse.message;
+                })
+                .catch(error => {
+                    document.getElementById("commentResult").innerHTML = "Fehler beim Hinzufügen des Kommentars: " + error.message;
+                });
+            })
+            .catch(error => {
+                document.getElementById("commentResult").innerHTML = "Fehler beim Abrufen des Tokens: " + error.message;
+            });
+        });
+    </script>
+</body>
+</html>
