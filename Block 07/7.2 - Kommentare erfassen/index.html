@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Challenge App</title>
+</head>
+<body>
+    <h1>Challenge App</h1>
+    
+    <div>
+        <label for="message">Message:</label>
+        <input type="text" id="message" />
+    </div>
+    
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" />
+    </div>
+    
+    <button onclick="sendMessage()">Send Message</button>
+    
+    <div id="response"></div>
+    
+    <script>
+        function sendMessage() {
+            var message = document.getElementById("message").value;
+            var username = document.getElementById("username").value;
+            
+            var token = getToken();
+            
+            if (token) {
+                var payload = {
+                    "message": message,
+                    "username": username
+                };
+                
+                var headers = {
+                    "Authorization": token
+                };
+                
+                fetch("http://10.71.4.34/comments", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        ...headers
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    var responseDiv = document.getElementById("response");
+                    responseDiv.innerHTML = "Response: " + JSON.stringify(data);
+                })
+                .catch(function(error) {
+                    console.error("Error:", error);
+                });
+            } else {
+                console.error("Token not available.");
+            }
+        }
+        
+        function getToken() {
+            var response = fetch("http://10.71.4.34/challenges/1")
+                .then(function(response) {
+                    return response.headers.get("Authorization");
+                })
+                .catch(function(error) {
+                    console.error("Error:", error);
+                });
+            
+            return response;
+        }
+    </script>
+</body>
+</html>
