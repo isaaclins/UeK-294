@@ -1,90 +1,142 @@
 const taskList = document.getElementById("taskList");
-    const taskTitleInput = document.getElementById("taskTitle");
-    const addTaskButton = document.getElementById("addTask");
-    const taskIdToDeleteInput = document.getElementById("taskIdToDelete");
-    const deleteTaskButton = document.getElementById("deleteTask");
-    const taskIdToFindInput = document.getElementById("taskIdToFind");
-    const findTaskButton = document.getElementById("findTask");
-    const listTasksButton = document.getElementById("listTasks");
+const taskTitleInput = document.getElementById("taskTitle");
+const addTaskButton = document.getElementById("addTask");
+const taskIdToDeleteInput = document.getElementById("taskIdToDelete");
+const deleteTaskButton = document.getElementById("deleteTask");
+const taskIdToFindInput = document.getElementById("taskIdToFind");
+const findTaskButton = document.getElementById("findTask");
+const listTasksButton = document.getElementById("listTasks");
+const addchecked = document.getElementById('addChecked');
+const editedDone = document.getElementById("editTaskDone").checked;
+const editTaskButton = document.getElementById("editTask");
+const taskIdToEditInput = document.getElementById("taskIdToEdit");
+const editTaskTitleInput = document.getElementById("editTaskTitle");
+const editTaskDoneInput = document.getElementById("editTaskDone");
+const tasktitlesmthsmth =  taskTitleInput.value;
 
-    // You can define your JavaScript functions to interact with the API here
+async function addTask() {
+  const isChecked = addChecked.checked;
+  const tasktitlesmthsmth = taskTitleInput.value;
 
-    function addTaskToList(task) {
-      const taskList = document.getElementById('taskList');
-      const listItem = document.createElement('li');
-      listItem.textContent = `ID: ${task.id}, Title: ${task.title}, Completed: ${task.completed}`;
-      taskList.appendChild(listItem);
+  try {
+    const response = await fetch('http://localhost/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        completed: isChecked,
+        title: tasktitlesmthsmth,
+      }),
+    });
+    if (response.status === 200) {
+      listAllTasks();
+    } else {
+      console.error('Failed to add task:', response.statusText);
     }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+async function deleteTask() {
+  const taskIdToDelete = taskIdToDeleteInput.value;
+  try {
+    const response = await fetch(`http://localhost/task/${taskIdToDelete}`, {
+      method: 'DELETE',
+    });
+    if (response.status === 200) {
+      listAllTasks();
+    } else {
+      console.error('Failed to delete task:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+async function findTask() {
+  const taskIdToFindInput = document.getElementById("taskIdToFind");
+  const taskIdToFind = taskIdToFindInput.value;
   
-
-    // Example function to delete a task by ID
-    function deleteTask() {
-      const taskIdToDelete = taskIdToDeleteInput.value;
-      
-      // Make a DELETE request
-      fetch(`http://localhost/task/${taskIdToDelete}`, {
-        method: 'DELETE',
-      })
-      .then(response => {
-        if (response.status === 200) {
-        } else {
-          // Handle deletion failure (e.g., task not found or other errors)
-          console.error('Failed to delete task:', response.statusText);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-    }
+  try {
+    const response = await fetch(`http://localhost/task/${taskIdToFind}`, {
+      method: 'GET',
+    });
     
-
-    // Example function to find a task by ID
-    function findTask() {
-      const taskIdToFind = taskIdToFindInput.value;
-      fetch(`http://localhost/task/${taskIdToFind}`, {
-        method: 'GET',
-      })
-      .then(response => {
-        if (response.status === 200) {
-          // Handle the successful response here
-          // For example, you can access the response data using response.json()
-          // and perform further actions.
-        } else {
-          console.error('Failed to get task:', response.statusText);
-          // Handle the error here if needed.
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // Handle any network errors or exceptions here.
-      })
-      .finally(() => {
-        // Regardless of success or failure, clear the input field
-        taskIdToFindInput.value = "";
-      });
+    if (response.status === 200) {
+      const taskData = await response.json(); // Parse JSON response
+      displayTask(taskData); // Call a function to display the task data
+    } else {
+      console.error('Failed to get task:', response.statusText);
     }
-    
+  } catch (error) {
+    console.error('Error:', error);
+  } finally {
+    taskIdToFindInput.value = "";
+  }
+}
 
-    // Example function to list all tasks
-    function listAllTasks() {
-      const taskList = document.getElementById('taskList');
-      taskList.innerHTML = ''; // Clear the current list
+// Function to display task data on the web page
+function displayTask(taskData) {
+  const taskList = document.getElementById("taskList");
+  taskList.innerHTML = ""; // Clear existing tasks
   
-      // Fetch tasks from the server
-      fetch('http://localhost/tasks')
-        .then(response => response.json())
-        .then(data => {
-          data.forEach(task => {
-            addTaskToList(task);
-          });
-        })
-        .catch(error => {
-          console.error('Error fetching tasks:', error);
-        });
-    }
+  const taskItem = document.createElement("li");
+  taskItem.innerHTML = `ID: ${taskData.id}<br>Title: ${taskData.title}<br>Completed: ${taskData.completed}`;
+  taskList.appendChild(taskItem);
+}
 
-    // Add event listeners for buttons
-    addTaskButton.addEventListener("click", addTask);
-    deleteTaskButton.addEventListener("click", deleteTask);
-    findTaskButton.addEventListener("click", findTask);
-    listTasksButton.addEventListener("click", listAllTasks);
+async function listAllTasks() {
+  taskList.innerHTML = ''; // Clear the current list
+  try {
+    const response = await fetch('http://localhost/tasks');
+    if (response.status === 200) {
+      const data = await response.json();
+      data.forEach(task => {
+        displayTask(task)
+      });
+    } else {
+      console.error('Failed to fetch tasks:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+  }
+}
+async function editTask() {
+  const taskIdToEdit = taskIdToEditInput.value;
+  const editedTitle = editTaskTitleInput.value;
+  const editedDone = editTaskDoneInput.checked;
+
+  try {
+    const response = await fetch(`http://localhost/tasks/${taskIdToEdit}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: editedTitle,
+        completed: editedDone,
+      }),
+    });
+
+    if (response.status === 200) {
+      listAllTasks();
+    } else {
+      console.error('Failed to edit task:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+editTaskButton.addEventListener("click", editTask);
+
+addTaskButton.addEventListener("click", addTask);
+deleteTaskButton.addEventListener("click", deleteTask);
+findTaskButton.addEventListener("click", findTask);
+listTasksButton.addEventListener("click", listAllTasks);
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  listAllTasks();
+});

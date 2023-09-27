@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Analoge Uhr</title>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const hourHand = document.getElementById("clock-hour-hand");
+        const minuteHand = document.getElementById("clock-minute-hand");
+        const secondHand = document.getElementById("clock-second-hand");
+
+        function setHourHand(date) {
+          const hours = date.getHours();
+          const degrees = (hours % 12) * 30;
+          hourHand.setAttribute("transform", `rotate(${degrees} 150 150)`);
+        }
+
+        function setMinuteHand(date) {
+          const minutes = date.getMinutes();
+          const degrees = (minutes % 60) * 6;
+          minuteHand.setAttribute("transform", `rotate(${degrees} 150 150)`);
+        }
+
+        function setSecondHand(date) {
+          const seconds = date.getSeconds();
+          const degrees = (seconds % 60) * 6;
+          secondHand.setAttribute("transform", `rotate(${degrees} 150 150)`);
+        }
+
+        function setHands() {
+          const date = new Date();
+          setHourHand(date);
+          setMinuteHand(date);
+          setSecondHand(date);
+        }
+
+        setInterval(setHands, 1000);
+        // setHands()
+      });
+    </script>
+  </head>
+
+  <body>
+    <svg id="clock" viewBox="0 0 300 300">
+      <circle id="clock-border" r="140" fill="none" stroke="#000" stroke-width="3" cx="150" cy="150" />
+
+      <g id="clock-hour-markers" fill="none" stroke="#000" stroke-width="10">
+        <line id="clock-hour-12" x1="0" x2="0" y1="-12" y2="12" transform="translate(150 31)" />
+        <line id="clock-hour-11" x1="0" x2="0" y1="-12" y2="12" transform="rotate(-30 132 -145)" />
+        <line id="clock-hour-10" x1="0" x2="0" y1="-12" y2="12" transform="rotate(-60 102 5)" />
+        <line id="clock-hour-9" x1="0" x2="0" y1="-12" y2="12" transform="rotate(-90 91 60)" />
+        <line id="clock-hour-8" x1="0" x2="0" y1="-12" y2="12" transform="rotate(-120 84 91)" />
+        <line id="clock-hour-7" x1="0" x2="0" y1="-12" y2="12" transform="rotate(-150 79 115)" />
+        <line id="clock-hour-6" x1="0" x2="0" y1="-12" y2="12" transform="rotate(180 75 135)" />
+        <line id="clock-hour-5" x1="0" x2="0" y1="-12" y2="12" transform="rotate(150 71 155)" />
+        <line id="clock-hour-4" x1="0" x2="0" y1="-12" y2="12" transform="rotate(120 66 178)" />
+        <line id="clock-hour-3" x1="0" x2="0" y1="-12" y2="12" transform="rotate(90 60 209)" />
+        <line id="clock-hour-2" x1="0" x2="0" y1="-12" y2="12" transform="rotate(60 49 264)" />
+        <line id="clock-hour-1" x1="0" x2="0" y1="-12" y2="12" transform="rotate(30 18 414)" />
+      </g>
+
+      <g id="clock-hour-hand" fill="none" stroke="#000" stroke-width="10">
+        <line x1="150" x2="150" y1="160" y2="100" />
+      </g>
+      <g id="clock-minute-hand" fill="none" stroke="#000" stroke-width="8">
+        <line x1="150" x2="150" y1="160" y2="50" />
+      </g>
+      <g id="clock-second-hand" fill="red" stroke="red" stroke-width="8">
+        <line x1="150" x2="150" y1="160" y2="50" />
+        <circle cx="150" cy="50" r="6" stroke="red"  fill="red" />
+      </g>
+     
+    </svg>
+  </body>
+</html>
