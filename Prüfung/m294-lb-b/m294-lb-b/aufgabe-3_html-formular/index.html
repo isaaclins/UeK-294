@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Formular um T-Shirts zu bestellen</title>
+  <style>
+    .form-group {
+      margin-bottom: 0.75rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    input.ok, textarea.ok, select.ok {
+      background-color: rgb(0, 248, 0);
+      border-color: rgb(0, 118, 10);
+    }
+  </style>
+  <script defer>
+    document.addEventListener('DOMcontentloaded',()=>{
+      const inputs = document.getElementsByTagName('input')
+      const textareas = document.getElementsByTagName('textarea')
+      const selects = document.getElementsByTagName('select')
+     document.addEventListener('blur',(event)=>{
+        inputs.classList.add('.ok');
+        textareas.classList.add('ok');
+        selects.classList.add('ok');
+  
+     })
+
+
+    })
+
+  
+
+
+  </script>
+</head>
+
+<body>
+  <form name="order" onsubmit="return check()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required/>
+    </div>
+    <div class="form-group">
+      <label for="email">E-Mail:</label>
+      <input type="email" id="email" name="email" required/>
+    </div>
+    <div class="form-group">
+      <label for="size">Grösse:</label>
+      <select id="size" name="size" required>
+        <option id="Option-S">Grösse S</option>
+        <option id="Option-M">Grösse M</option>
+        <option id="Option-L">Grösse L</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="quantity">Menge:</label>
+      <input max="5" min="1" type="number" id="quantity" name="quantity" required/>
+    </div>
+    <div class="form-group">
+      <label for="address">Adresse:</label>
+      <textarea id="address" name="address" required></textarea>
+    </div>
+    <div class="form-group">
+      <button onclick="test()" type="submit">Bestellen</button>
+    </div>
+  </form>
+</body>
+
+</html>

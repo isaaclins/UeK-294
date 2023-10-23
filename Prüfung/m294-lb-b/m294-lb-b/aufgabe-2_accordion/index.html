@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Accordion</title>
+    <style>
+      .accordion > section > main {
+        display: none;
+      }
+
+      .accordion > section.open > main {
+        display: block;
+      }
+
+      .accordion > section > header {
+        cursor: pointer;
+        display: flex;
+        padding: 0.5rem 0;
+      }
+
+      .accordion > section > header > h3 {
+        padding: 0;
+        margin: 0;
+        margin-left: 0.25rem;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const mainTexts = document.querySelectorAll(
+          ".accordion > section > main"
+        );
+      
+        document
+          .querySelectorAll(".accordion > section > header")
+          .forEach((accordionHeader, index) => {
+            accordionHeader.addEventListener("click", () => {
+              toggleAccordionSection(mainTexts[index]);
+            });
+          });
+      
+        function toggleAccordionSection(mainText) {
+          mainTexts.forEach((text) => {
+            if (text === mainText) {
+              if (text.style.display === "block") {
+                text.style.display = "none";
+              } else {
+                text.style.display = "block";
+              }
+            } else {
+              text.style.display = "none";
+            }
+          });
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="accordion">
+      <section>
+        <header>
+          <h3>HTML</h3>
+        </header>
+        <main>Erstellen von HTML-Dokumenten mit verschiedenen Elementen wie Überschriften, Absätzen, Listen und Links.</main>
+      </section>
+      
+      <section>
+        <header>
+          <h3>CSS</h3>
+        </header>
+        <main>Anwendung von CSS zur Gestaltung von HTML-Dokumenten, z.B. zur Definition von Schriften, Farben und Layouts.</main>
+      </section>
+
+      <section>
+        <header>
+          <h3>
+            Javascript
+          </h3>
+        </header>
+        <main>
+          Logik von HTML, um formulare, elemente und allgemeine Logik zu gestalten wie Daten extrahieren oder Requests senden.
+        </main>
+      </section>
+    </div>
+  </body>
+</html>

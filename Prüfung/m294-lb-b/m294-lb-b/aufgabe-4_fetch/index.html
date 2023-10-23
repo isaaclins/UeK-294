@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Chuck Norris</title>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+
+			loadCategories()
+			getJoke()
+		})
+
+		async function loadCategories() {
+			const categorySelect = document.getElementById('categories')
+			categorySelect.replaceChildren([])
+
+			/* Lücke: Ersetzen Sie diesen Kommentar mit Ihrer Lösung. */
+
+		}
+
+		async function getJoke() {
+			const category = document.querySelector('#categories').value
+			await fetch('https://api.chucknorris.io/jokes/random').then((response) => response.json())
+			.then((data) => {const joke = data;});
+			const jokecontainer = document.getElementById('text');
+			console.log(data)
+
+		}
+
+	</script>
+</head>
+
+<body>
+
+
+	<header>
+		<select id="categories"></select>
+		<button type="button" onclick="getJoke()">Nächster Witz!</button>
+	</header>
+	<main>
+		<p id="text"></p>
+	</main>
+</body>
+
+</html>

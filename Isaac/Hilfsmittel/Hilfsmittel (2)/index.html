@@ -24,23 +24,24 @@
         margin-left: 0.25rem;
       }
 
-      .mainOpen{
-        display:block; /*Text wird angezeigt*/
+      .mainOpen {
+        display: block;
       }
 
-      .mainClose{
-        display:none; /*Text wird nicht angezeigt*/
+      .mainClose {
+        display: none;
       }
-
     </style>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".accordion > section > header").forEach((accordionHeader) => {
-          accordionHeader.onclick = () => {
-            closeAllOpenSectionsOfAccordion(accordionHeader);
-            openSectionOfClickedHeader(accordionHeader);
-          };
-        });
+      document.addEventListener('DOMContentLoaded', () => {
+        document
+          .querySelectorAll('.accordion > section > header')
+          .forEach((accordionHeader) => {
+            accordionHeader.onclick = () => {
+              closeAllOpenSectionsOfAccordion(accordionHeader);
+              openSectionOfClickedHeader(accordionHeader);
+            };
+          });
         const mainText = document.querySelectorAll('#mainText');
         function closeAllOpenSectionsOfAccordion(accordionHeader) {
           mainText.classList.add('.accordion > section > main');
@@ -54,19 +55,24 @@
   </head>
 
   <body>
-    
     <div class="accordion">
       <section>
         <header>
           <h3>HTML</h3>
         </header>
-        <main id="mainText">Erstellen von HTML-Dokumenten mit verschiedenen Elementen wie Überschriften, Absätzen, Listen und Links.</main>
+        <main id="mainText">
+          Erstellen von HTML-Dokumenten mit verschiedenen Elementen wie
+          Überschriften, Absätzen, Listen und Links.
+        </main>
       </section>
       <section>
         <header>
           <h3>CSS</h3>
         </header>
-        <main id="mainText">Anwendung von CSS zur Gestaltung von HTML-Dokumenten, z.B. zur Definition von Schriften, Farben und Layouts.</main>
+        <main id="mainText">
+          Anwendung von CSS zur Gestaltung von HTML-Dokumenten, z.B. zur
+          Definition von Schriften, Farben und Layouts.
+        </main>
       </section>
       <section>
         <header>
